@@ -110,7 +110,7 @@ if( ! function_exists( 'avada_side_header' ) ) {
 			}
 		?>
 		<div id="side-header-sticky"></div>
-		<div id="side-header" class="<?php echo sprintf( 'clearfix fusion-mobile-menu-design-%s fusion-sticky-logo-%s fusion-mobile-logo-%s',  strtolower( fusion_get_theme_option( 'mobile_menu_design' ) ), $sticky_header_logo, $mobile_logo ); ?><?php if( fusion_get_theme_option( 'header_shadow' ) ): ?> header-shadow<?php endif; ?>">
+		<div id="side-header" class="<?php echo sprintf( 'clearfix fusion-mobile-menu-design-%s fusion-sticky-logo-%s fusion-mobile-logo-%s fusion-sticky-menu-%s',  strtolower( fusion_get_theme_option( 'mobile_menu_design' ) ), $sticky_header_logo, $mobile_logo, has_nav_menu( 'sticky_navigation' ) ); ?><?php if( fusion_get_theme_option( 'header_shadow' ) ): ?> header-shadow<?php endif; ?>">
 			<div class="side-header-wrapper">
 				<?php
 				/**
@@ -256,23 +256,12 @@ if( ! function_exists( 'avada_logo' ) ) {
 				<?php
 				$logo_url = fusion_get_theme_option( 'logo' );
 				
-				if ( $logo_url ) {
-					$logo_size = fusion_get_attachment_data_by_url( $logo_url, 'logo' );
-
-					if ( ! $logo_size ) {
-						$logo_size = getimagesize( $logo_url );
-
-						if ( $logo_size ) {
-							$logo_size['width'] = $logo_size[0];
-							$logo_size['height'] = $logo_size[1];
-						} else {
-							$logo_size['width'] = '';
-							$logo_size['height'] = '';
-						}
-					}
+				if ( fusion_get_theme_option( 'retina_logo_width' ) && fusion_get_theme_option( 'retina_logo_height' ) ) {
+					$logo_size['width'] = fusion_get_theme_option( 'retina_logo_width' );
+					$logo_size['height'] = fusion_get_theme_option( 'retina_logo_height' );
 				} else {
 					$logo_size['width'] = '';
-					$logo_size['height'] = '';				
+					$logo_size['height'] = '';
 				}
 				?>			
 				<img src="<?php echo fusion_get_theme_option( 'logo' ); ?>" width="<?php echo $logo_size['width']; ?>" height="<?php echo $logo_size['height']; ?>" alt="<?php bloginfo( 'name' ); ?>" class="fusion-logo-1x fusion-standard-logo" />
@@ -283,7 +272,7 @@ if( ! function_exists( 'avada_logo' ) ) {
 				?>
 				<img src="<?php echo $retina_logo; ?>" width="<?php echo $logo_size['width']; ?>" height="<?php echo $logo_size['height']; ?>" alt="<?php bloginfo('name'); ?>" <?php echo $style; ?> class="fusion-standard-logo fusion-logo-2x" />
 				<?php else: ?>
-				<img src="<?php echo fusion_get_theme_option( 'logo' ); ?>" alt="<?php bloginfo('name'); ?>" class="fusion-standard-logo fusion-logo-2x" />
+				<img src="<?php echo fusion_get_theme_option( 'logo' ); ?>" width="<?php echo $logo_size['width']; ?>" height="<?php echo $logo_size['height']; ?>" alt="<?php bloginfo('name'); ?>" class="fusion-standard-logo fusion-logo-2x" />
 				<?php endif; ?>
 
 				<!-- mobile logo -->
@@ -292,11 +281,12 @@ if( ! function_exists( 'avada_logo' ) ) {
 					<?php
 					$retina_logo = fusion_get_theme_option( 'mobile_logo_retina' );
 					if( $retina_logo ):
-					$logo_size = fusion_get_attachment_data_by_url( fusion_get_theme_option( 'mobile_logo' ), 'mobile_logo' );
-					if( ! $logo_size ) {
-						$logo_size = getimagesize( fusion_get_theme_option( 'mobile_logo' ) );
-						$logo_size['width'] = $logo_size[0];
-						$logo_size['height'] = $logo_size[1];
+					if ( fusion_get_theme_option( 'mobile_retina_logo_width' ) && fusion_get_theme_option( 'mobile_retina_logo_height' ) ) {
+						$logo_size['width'] = fusion_get_theme_option( 'mobile_retina_logo_width' );
+						$logo_size['height'] = fusion_get_theme_option( 'mobile_retina_logo_height' );
+					} else {
+						$logo_size['width'] = '';
+						$logo_size['height'] = '';
 					}
 					$style = sprintf( 'style="max-width:%1$s%3$s; max-height: %2$s%3$s; height: auto;"', $logo_size['width'], $logo_size['height'], 'px' );
 					?>
@@ -314,11 +304,12 @@ if( ! function_exists( 'avada_logo' ) ) {
 					<?php
 					$retina_logo = fusion_get_theme_option( 'sticky_header_logo_retina' );
 					if( $retina_logo ):
-					$logo_size = fusion_get_attachment_data_by_url( fusion_get_theme_option( 'sticky_header_logo' ), 'sticky_header_logo' );
-					if( ! $logo_size ) {
-						$logo_size = getimagesize( fusion_get_theme_option( 'sticky_header_logo' ) );
-						$logo_size['width'] = $logo_size[0];
-						$logo_size['height'] = $logo_size[1];
+					if ( fusion_get_theme_option( 'sticky_retina_logo_width' ) && fusion_get_theme_option( 'sticky_retina_logo_height' ) ) {
+						$logo_size['width'] = fusion_get_theme_option( 'sticky_retina_logo_width' );
+						$logo_size['height'] = fusion_get_theme_option( 'sticky_retina_logo_height' );
+					} else {
+						$logo_size['width'] = '';
+						$logo_size['height'] = '';
 					}
 					$style = sprintf( 'style="max-width:%1$s%3$s; max-height: %2$s%3$s; height: auto;"', $logo_size['width'], $logo_size['height'], 'px' );
 					?>
@@ -354,7 +345,9 @@ if( ! function_exists( 'avada_main_menu' ) ) {
 				'container_class'	=> 'fusion-main-menu'
 			));
 
-			if( has_nav_menu( 'sticky_navigation' ) ) {
+			if( has_nav_menu( 'sticky_navigation' ) &&
+				( ! function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) || ( function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) && ! ubermenu_get_menu_instance_by_theme_location( 'sticky_navigation' ) ) )
+			) {
 				wp_nav_menu(array(
 					'theme_location'	=> 'sticky_navigation',
 					'depth'				=> 5,
@@ -375,7 +368,9 @@ if( ! function_exists( 'avada_main_menu' ) ) {
 				'container_class'	=> 'fusion-main-menu'
 			));
 
-			if( has_nav_menu( 'sticky_navigation' ) ) {
+			if( has_nav_menu( 'sticky_navigation' ) &&
+				( ! function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) || ( function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) && ! ubermenu_get_menu_instance_by_theme_location( 'sticky_navigation' ) ) )
+			) {
 				wp_nav_menu(array(
 					'theme_location'	=> 'sticky_navigation',
 					'depth'				=> 5,
@@ -386,8 +381,13 @@ if( ! function_exists( 'avada_main_menu' ) ) {
 				));
 			}
 		}
-
-		avada_mobile_main_menu();
+		
+		// Make sure mobile menu is not loaded when ubermenu is used
+		if ( ! function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) ||
+			 ( function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) && ! ubermenu_get_menu_instance_by_theme_location( 'main_navigation' ) )
+		) {
+			avada_mobile_main_menu();			
+		}
 	}
 }
 
@@ -533,11 +533,17 @@ if( ! function_exists( 'avada_modern_menu' ) ) {
 			$header_content_3 = fusion_get_theme_option( 'header_v4_content' );
 			
 			$html .= '<div class="fusion-mobile-menu-icons">';
-				$html .= '<a href="#" class="fusion-icon fusion-icon-bars"></a>';
-				if( fusion_get_theme_option('header_layout') == 'v4' && ( $header_content_3 == 'Tagline And Search' || $header_content_3 == 'Search' ) ) {
+				// Make sure mobile menu toggle is not loaded when ubermenu is used
+				if ( ! function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) ||
+					 ( function_exists( 'ubermenu_get_menu_instance_by_theme_location' ) && ! ubermenu_get_menu_instance_by_theme_location( 'main_navigation' ) )
+				) {
+					$html .= '<a href="#" class="fusion-icon fusion-icon-bars"></a>';		
+				}			
+	
+				if ( fusion_get_theme_option('header_layout') == 'v4' && ( $header_content_3 == 'Tagline And Search' || $header_content_3 == 'Search' ) ) {
 					$html .= '<a href="#" class="fusion-icon fusion-icon-search"></a>';
 				}
-				if( class_exists('Woocommerce') && fusion_get_theme_option( 'woocommerce_cart_link_main_nav' ) ) {
+				if ( class_exists('Woocommerce') && fusion_get_theme_option( 'woocommerce_cart_link_main_nav' ) ) {
 					$html .= sprintf( '<a href="%s" class="fusion-icon fusion-icon-shopping-cart"></a>', get_permalink( get_option( 'woocommerce_cart_page_id' ) ) );
 				}
 			$html .= '</div>';

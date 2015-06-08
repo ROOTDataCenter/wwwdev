@@ -31,7 +31,6 @@ $theme_fusion_url = 'https://theme-fusion.com/';
 			}
 			?>
 			<?php endif; ?>
-			<li><?php echo sprintf( __( 'Active Plugins: <strong>"%s"</strong> - Turn off all plugins except Fusion Core, Revolution Slider and LayerSlider.', 'Avada' ), count( (array) get_option( 'active_plugins' ) ) ); ?></li>
 		</ol>
 		<p><a href="<?php echo admin_url( 'admin.php?page=avada-system-status' ); ?>" class="button-primary"><?php _e( 'System Status', 'Avada' ); ?></a></p>
 	</div>
@@ -58,7 +57,6 @@ $theme_fusion_url = 'https://theme-fusion.com/';
 			}
 			?>
 			<?php endif; ?>
-			<li><?php echo sprintf( __( 'Active Plugins: <strong>"%s"</strong> - Turn off all plugins except Fusion Core, Revolution Slider and LayerSlider.', 'Avada' ), count( (array) get_option( 'active_plugins' ) ) ); ?></li>
 		</ol>
 		<p><a href="<?php echo admin_url( 'admin.php?page=avada-system-status' ); ?>" class="button-primary"><?php _e( 'System Status', 'Avada' ); ?></a></p>
 	</div>

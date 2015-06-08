@@ -190,7 +190,7 @@ class FusionSC_Tagline {
 
 		$attr = array();
 
-		$attr['class'] = sprintf( 'button fusion-button fusion-button-%s button-%s fusion-button-%s button-%s button-%s%s', self::$args['buttoncolor'],
+		$attr['class'] = sprintf( 'button fusion-button button-%s button-%s fusion-button-%s button-%s button-%s%s', self::$args['buttoncolor'],
 								  self::$args['button_shape'], self::$args['button_size'], self::$args['button_size'], self::$args['button_type'], self::$args['button_class'] );
 
 		if( self::$args['content_alignment'] == 'right' ) {

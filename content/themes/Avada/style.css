@@ -4,7 +4,7 @@ Description: A business, portfolio and blog theme.
 Author: ThemeFusion
 Theme URI: http://theme-fusion.com/avada/
 Author URI: http://themeforest.net/user/ThemeFusion
-Version: 3.8
+Version: 3.8.2
 License: Themeforest Split Licence
 License URI: -
 Text Domain: Avada
@@ -5046,7 +5046,7 @@ Table of Contents
 ================================================================================================= */
 .fusion-header-wrapper {
   position: relative;
-  z-index: 10000;
+  z-index: 10010;
 }
 .fusion-header-wrapper .tooltip {
   z-index: 10030;
@@ -5874,7 +5874,7 @@ body.side-header-right.rtl #side-header .login-box {
   max-height: 15px;
   vertical-align: middle;
 }
-.fusion-megamenu-icon.text-menu-icon {
+.sub-menu .fusion-megamenu-icon.text-menu-icon {
   position: absolute;
 }
 .fusion-megamenu-bullet {
@@ -6579,7 +6579,7 @@ Table of Contents
   width: 50%;
 }
 .fusion-portfolio-three .fusion-portfolio-post,
-.fusion-portfolio-three.fusion-portfolio-grid .fusion-portfolio-post {
+.fusion-portfolio-grid .fusion-portfolio-post {
   width: 33.33%;
 }
 .fusion-portfolio-four .fusion-portfolio-post {

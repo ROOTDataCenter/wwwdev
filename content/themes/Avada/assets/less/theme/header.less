@@ -16,7 +16,7 @@ Table of Contents
 
 .fusion-header-wrapper {
 	position: relative;
-	z-index: 10000;
+	z-index: 10010;
 	
 	.tooltip {
 		z-index: 10030;
@@ -975,7 +975,9 @@ body.side-header-right {
 	}
 
 	&.text-menu-icon {
-		position: absolute;
+		.sub-menu & {
+			position: absolute;
+		}
 	}
 }
 

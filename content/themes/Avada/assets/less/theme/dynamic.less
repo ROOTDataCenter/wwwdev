@@ -30,15 +30,14 @@ Table of Contents
 & when (@is-woocommerce = 1) {
 	/* Woocommerce - Default Styling
 	================================================================================================= */
-	@import "woocommerce.less";
+	@import "wpless_woocommerce.less";
 }
 
 & when (@is-rtl = 1) {
 	/* RTL
 	================================================================================================= */
-	@import "rtl.less";
+	@import "wpless_rtl.less";
 }
-
 
 /* dynamic_css.php
 ================================================================================================= */
@@ -2486,7 +2485,7 @@ h6 { margin-top: @h6-top-margin * 1em; margin-bottom: @h6-bottom-margin * 1em; }
 	/* Media
 	================================================================================================= */
 
-	@import 'media.less';
+	@import 'wpless_media.less';
 }
 
 & when (@responsive = 1) {
@@ -2494,7 +2493,7 @@ h6 { margin-top: @h6-top-margin * 1em; margin-bottom: @h6-bottom-margin * 1em; }
 	================================================================================================= */
 
 	& when (@ipad-portrait = 0) {
-		@import 'ipad.less';
+		@import 'wpless_ipad.less';
 	}
 }
 

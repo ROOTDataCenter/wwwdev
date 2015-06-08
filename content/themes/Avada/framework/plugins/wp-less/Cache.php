@@ -9,7 +9,7 @@ require_once( dirname(__FILE__).'/Version.php');
  * @subpackage cache
  *
  */
-class Less_Cache{
+class avada_Less_Cache{
 
 	public static $cache_dir = false;		// directory less.php can use for storing data
 
@@ -29,10 +29,10 @@ class Less_Cache{
 
 		//check $cache_dir
 		if( isset($parser_options['cache_dir']) ){
-			Less_Cache::$cache_dir = $parser_options['cache_dir'];
+			avada_Less_Cache::$cache_dir = $parser_options['cache_dir'];
 		}
 
-		if( empty(Less_Cache::$cache_dir) ){
+		if( empty(avada_Less_Cache::$cache_dir) ){
 			throw new Exception('cache_dir not set');
 		}
 
@@ -42,8 +42,8 @@ class Less_Cache{
 
 		//create a file for variables
 		if( !empty($modify_vars) ){
-			$lessvars = Less_Parser::serializeVars($modify_vars);
-			$vars_file = Less_Cache::$cache_dir.'lessphpvars_' . sha1($lessvars) . '.less';
+			$lessvars = avada_Less_Parser::serializeVars($modify_vars);
+			$vars_file = avada_Less_Cache::$cache_dir.'lessphpvars_' . sha1($lessvars) . '.less';
 
 			if( !file_exists($vars_file) ){
 				file_put_contents($vars_file, $lessvars);
@@ -55,7 +55,7 @@ class Less_Cache{
 
 		// generate name for compiled css file
 		$hash = md5(json_encode($less_files));
- 		$list_file = Less_Cache::$cache_dir.'lessphp_'.$hash.'.list';
+ 		$list_file = avada_Less_Cache::$cache_dir.'lessphp_'.$hash.'.list';
 
 
  		// check cached content
@@ -130,12 +130,12 @@ class Less_Cache{
 
 		// get less.php if it exists
 		$file = dirname(__FILE__) . '/Less.php';
-		if( file_exists($file) && !class_exists('Less_Parser') ){
+		if( file_exists($file) && !class_exists('avada_Less_Parser') ){
 			require_once($file);
 		}
 
-		$parser_options['cache_dir'] = Less_Cache::$cache_dir;
-		$parser = new Less_Parser($parser_options);
+		$parser_options['cache_dir'] = avada_Less_Cache::$cache_dir;
+		$parser = new avada_Less_Parser($parser_options);
 
 
 		// combine files
@@ -169,17 +169,17 @@ class Less_Cache{
 				return $parser_options['output'];
 			}
 
-			return Less_Cache::$cache_dir.$parser_options['output'];
+			return avada_Less_Cache::$cache_dir.$parser_options['output'];
 		}
 
-		return Less_Cache::$cache_dir.$compiled_name;
+		return avada_Less_Cache::$cache_dir.$compiled_name;
 	}
 
 
 	private static function CompiledName( $files ){
 
 		//save the file list
-		$temp = array(Less_Version::cache_version);
+		$temp = array(avada_Less_Version::cache_version);
 		foreach($files as $file){
 			$temp[] = filemtime($file)."\t".filesize($file)."\t".$file;
 		}
@@ -189,24 +189,24 @@ class Less_Cache{
 
 
 	public static function SetCacheDir( $dir ){
-		Less_Cache::$cache_dir = $dir;
+		avada_Less_Cache::$cache_dir = $dir;
 	}
 
 	public static function CheckCacheDir(){
 
-		Less_Cache::$cache_dir = str_replace('\\','/',Less_Cache::$cache_dir);
-		Less_Cache::$cache_dir = rtrim(Less_Cache::$cache_dir,'/').'/';
+		avada_Less_Cache::$cache_dir = str_replace('\\','/',avada_Less_Cache::$cache_dir);
+		avada_Less_Cache::$cache_dir = rtrim(avada_Less_Cache::$cache_dir,'/').'/';
 
-		if( !file_exists(Less_Cache::$cache_dir) ){
-			if( !mkdir(Less_Cache::$cache_dir) ){
-				throw new Less_Exception_Parser('Less.php cache directory couldn\'t be created: '.Less_Cache::$cache_dir);
+		if( !file_exists(avada_Less_Cache::$cache_dir) ){
+			if( !mkdir(avada_Less_Cache::$cache_dir) ){
+				throw new Less_Exception_Parser('Less.php cache directory couldn\'t be created: '.avada_Less_Cache::$cache_dir);
 			}
 
-		}elseif( !is_dir(Less_Cache::$cache_dir) ){
-			throw new Less_Exception_Parser('Less.php cache directory doesn\'t exist: '.Less_Cache::$cache_dir);
+		}elseif( !is_dir(avada_Less_Cache::$cache_dir) ){
+			throw new Less_Exception_Parser('Less.php cache directory doesn\'t exist: '.avada_Less_Cache::$cache_dir);
 
-		}elseif( !is_writable(Less_Cache::$cache_dir) ){
-			throw new Less_Exception_Parser('Less.php cache directory isn\'t writable: '.Less_Cache::$cache_dir);
+		}elseif( !is_writable(avada_Less_Cache::$cache_dir) ){
+			throw new Less_Exception_Parser('Less.php cache directory isn\'t writable: '.avada_Less_Cache::$cache_dir);
 
 		}
 
@@ -220,14 +220,14 @@ class Less_Cache{
 			return;
 		}
 
-		$files = scandir(Less_Cache::$cache_dir);
+		$files = scandir(avada_Less_Cache::$cache_dir);
 		if( $files ){
 			$check_time = time() - 604800;
 			foreach($files as $file){
 				if( strpos($file,'lessphp_') !== 0 ){
 					continue;
 				}
-				$full_path = Less_Cache::$cache_dir.'/'.$file;
+				$full_path = avada_Less_Cache::$cache_dir.'/'.$file;
 				if( filemtime($full_path) > $check_time ){
 					continue;
 				}

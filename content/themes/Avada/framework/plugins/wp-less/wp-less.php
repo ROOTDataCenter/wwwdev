@@ -14,13 +14,13 @@
 // Busted! No direct file access
 fusion_block_direct_access();
 
-if ( ! class_exists( 'wp_less' ) ) {
+if ( ! class_exists( 'avada_wp_less' ) ) {
 	require_once( 'lessc.inc.php' );
 	
 	// add on init to support theme customiser in v3.4
-	add_action( 'init', array( 'wp_less', 'instance' ) );
+	add_action( 'init', array( 'avada_wp_less', 'instance' ) );
 
-	class wp_less {
+	class avada_wp_less {
 		/**
 		 * @static
 		 * @var    \wp_less Reusable object instance.
@@ -69,7 +69,7 @@ if ( ! class_exists( 'wp_less' ) ) {
 		/**
 		 * @var bool Whether to preserve comments when compiling
 		 */
-		public $preserve_comments = false;
+		public $preserve_comments = true;
 
 
 		/**
@@ -82,10 +82,8 @@ if ( ! class_exists( 'wp_less' ) ) {
 		 * Constructor
 		 */
 		public function __construct() {
-			//wp_cache_flush();
-
 			// admin_init refresh cache
-			add_action( 'admin_init', array( $this, 'admin_init' ) );
+			//add_action( 'admin_init', array( $this, 'admin_init' ) );
 
 			// every CSS file URL gets passed through this filter
 			add_filter( 'style_loader_src', array( $this, 'parse_stylesheet' ), 100000, 2 );
@@ -135,6 +133,7 @@ if ( ! class_exists( 'wp_less' ) ) {
 		 * @return string         URL of the compiled stylesheet
 		 */
 		public function parse_stylesheet( $src, $handle ) {
+			global $smof_data;
 
 			// we only want to handle .less files
 			if ( ! preg_match( '/\.less(\.php)?$/', preg_replace( '/\?.*$/', '', $src ) ) )
@@ -159,7 +158,7 @@ if ( ! class_exists( 'wp_less' ) ) {
 			try {
 
 				// initialise the parser
-				$less = new lessc;
+				$less = new avada_lessc;
 
 				// load the cache
 				$cache = $this->get_cached_file_data( $handle );
@@ -174,8 +173,8 @@ if ( ! class_exists( 'wp_less' ) ) {
 					$cache = array( 'vars' => $this->vars, 'less' => $less_path );
 
 				// less config
-				$less->setFormatter( apply_filters( 'less_compression', $this->compression ) );
-				$less->setPreserveComments( apply_filters( 'less_preserve_comments', $this->preserve_comments ) );
+				$less->setFormatter( false );
+				$less->setPreserveComments( true );
 				$less->setVariables( $this->vars );
 
 				// add directories to scan for imports
@@ -193,7 +192,7 @@ if ( ! class_exists( 'wp_less' ) ) {
 					$less->unregisterFunction( $name );
 
 				// allow devs to mess around with the less object configuration
-				do_action_ref_array( 'lessc', array( &$less ) );
+				do_action_ref_array( 'avada_lessc', array( &$less ) );
 
 				// $less->cachedCompile only checks for changed file modification times
 				// if using the theme customiser (changed variables not files) then force a compile
@@ -209,7 +208,9 @@ if ( ! class_exists( 'wp_less' ) ) {
 					$this->update_cached_file_data( $handle, array( 'vars' => $this->vars, 'less' => $less_cache ) );
 				}
 			} catch ( exception $ex ) {
-				wp_die( $ex->getMessage() );
+				if( defined('WP_DEBUG') && WP_DEBUG ) {
+					echo $ex->getMessage();
+				}
 			}
 
 			// restore query string it had if any
@@ -220,9 +221,6 @@ if ( ! class_exists( 'wp_less' ) ) {
 			$url = add_query_arg( 'ver', $less_cache[ 'updated' ], $url );
 
 			if( get_option( 'avada_less_cache_reset' ) == 'true' || get_option( 'avada_less_cache_reset' ) == '' ) {
-				// Purge Cache for Varnish, NGNIX, Fast Cache, Mod Pagespeed, Etc
-				$this->purge_cache( $url );
-
 				// Purge W3 Total Cache
 				if( function_exists( 'w3tc_pgcache_flush' ) ) {
 					w3tc_pgcache_flush();
@@ -234,9 +232,11 @@ if ( ! class_exists( 'wp_less' ) ) {
 				}
 
 				do_action( 'avada_clear_dynamic_css_cache' );
-
-				// Purge Cache for Varnish, NGNIX, Fast Cache, Mod Pagespeed, Etc
-				$this->purge_cache( $url );
+				
+				if( $smof_data['cache_server_ip'] ) {
+					// Purge Cache for Varnish, NGNIX, Fast Cache, Mod Pagespeed, Etc
+					$this->purge_cache( $url );
+				}
 
 				update_option( 'avada_less_cache_reset', 'false' );
 			}
@@ -261,8 +261,6 @@ if ( ! class_exists( 'wp_less' ) ) {
 		}
 
 		public function save_parsed_css( $css_path, $file_contents ) {
-			wp_cache_flush();
-
 			update_option( 'avada_less_cache_reset', 'true' );
 
 			if ( ! apply_filters( 'less_save_css', $css_path, $file_contents ) ) {
@@ -460,7 +458,7 @@ if ( ! class_exists( 'wp_less' ) ) {
 		 * @return void
 		 */
 		function register_less_function( $name, $callable ) {
-			$less = wp_less::instance();
+			$less = avada_wp_less::instance();
 			$less->register( $name, $callable );
 		}
 
@@ -471,7 +469,7 @@ if ( ! class_exists( 'wp_less' ) ) {
 		 * @return void
 		 */
 		function unregister_less_function( $name ) {
-			$less = wp_less::instance();
+			$less = avada_wp_less::instance();
 			$less->unregister( $name );
 		}
 	}
@@ -485,7 +483,7 @@ if ( ! class_exists( 'wp_less' ) ) {
 		 * @return void
 		 */
 		function add_less_var( $name, $value ) {
-			$less = wp_less::instance();
+			$less = avada_wp_less::instance();
 			$less->add_var( $name, $value );
 		}
 
@@ -496,7 +494,7 @@ if ( ! class_exists( 'wp_less' ) ) {
 		 * @return void
 		 */
 		function remove_less_var( $name ) {
-			$less = wp_less::instance();
+			$less = avada_wp_less::instance();
 			$less->remove_var( $name );
 		}
 	}

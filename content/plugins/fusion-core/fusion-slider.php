@@ -199,7 +199,16 @@ if( ! class_exists( 'Fusion_Slider' ) ) {
 			$t_id = $term->term_id;
 		 
 			// retrieve the existing value(s) for this meta field. This returns an array
-			$term_meta = get_option( "taxonomy_$t_id" ); ?>
+			$term_meta = get_option( "taxonomy_$t_id" ); 
+			
+			if ( ! array_key_exists( 'typo_sensitivity', $term_meta ) ) {
+				$term_meta['typo_sensitivity'] = '0.6';
+			}
+			
+			if ( ! array_key_exists( 'typo_factor', $term_meta ) ) {
+				$term_meta['typo_factor'] = '0.6';
+			}
+			?>
 			<tr class="form-field">
 				<th scope="row" valign="top"><label for="term_meta[slider_width]"><?php _e( 'Slider Width', 'fusion-core' ); ?></label></th>
 				<td>

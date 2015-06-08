@@ -25635,7 +25635,7 @@ function handler(event) {
 						firstClass = 'ilightbox-prev',
 						secondClass = 'ilightbox-next';
 				} else if (side == "prev") {
-					if (!iL.items[item]) { return false; } 
+					if (!iL.items[item]) { return false; }
 					var firstHolder = vars.prevPhoto,
 						secondHolder = vars.holder,
 						lastHolder = vars.nextPhoto,
@@ -26558,7 +26558,7 @@ function handler(event) {
 
 						if (source.type == 'application/x-shockwave-flash') { object.type = "flash"; }
 						else if (source.type.indexOf("video/") != -1) { object.type = "video"; }
-						else if (source.type.indexOf("/html") != -1) { object.type = "iframe"; } 
+						else if (source.type.indexOf("/html") != -1) { object.type = "iframe"; }
 						else if (source.type.indexOf("image/") != -1) { object.type = "image"; }
 
 					} else if (typeof data.response != 'undefined') {
@@ -26738,7 +26738,7 @@ function handler(event) {
 	 * @return {String}
 	 */
 	function getExtension(URL) {
-		var ext = URL.split('.').pop().toLowerCase(),
+		var ext = ( URL ) ? URL.split('.').pop().toLowerCase() : '',
 			extra = ext.indexOf('?') !== -1 ? ext.split('?').pop() : '';
 
 		return ext.replace(extra, '');
@@ -27587,8 +27587,8 @@ jQuery(document).ready(function() {
             jQuery( '.woocommerce.widget_product_categories select' ).wrap( '<p class="avada-select-parent"></p>' ).after( '<div class="select-arrow">&#xe61f;</div>' );
         }
 
-        jQuery( '.cart-collaterals #calc_shipping_country, .widget_layered_nav select' ).wrap( '<p class="avada-select-parent"></p>' ).after( '<div class="select-arrow">&#xe61f;</div>' );
-        jQuery( '.cart-collaterals #calc_shipping_state' ).after( '<div class="select-arrow">&#xe61f;</div>' );
+        jQuery( '.cart-collaterals select#calc_shipping_country, .widget_layered_nav select' ).wrap( '<p class="avada-select-parent"></p>' ).after( '<div class="select-arrow">&#xe61f;</div>' );
+        jQuery( '.cart-collaterals select#calc_shipping_state' ).after( '<div class="select-arrow">&#xe61f;</div>' );
 
         setTimeout(
             function() {
@@ -27677,8 +27677,6 @@ jQuery(document).ready(function() {
 				// Timeout is needed that woocommerce js can kick in first
 				setTimeout(
 					function() {
-						console.log(jQuery( '.avada-shipping-calculator-form select#calc_shipping_state').length);
-						console.log(! jQuery( '.avada-shipping-calculator-form #calc_shipping_state' ).parent().find( '.select-arrow' ).length);
 						if ( jQuery( '.avada-shipping-calculator-form select#calc_shipping_state').length && ! jQuery( '.avada-shipping-calculator-form #calc_shipping_state' ).parent().find( '.select-arrow' ).length ) {
 							jQuery( '.avada-shipping-calculator-form select#calc_shipping_state').after( '<div class="select-arrow">&#xe61f;</div>' );
 						}
@@ -30570,12 +30568,17 @@ jQuery( window ).load(function() {
 						if( $logo ) {
 							var $scrolled_logo_height = $logo.height();
 
+							$logo.attr( 'data-logo-height', $logo.height() );
+							$logo.attr( 'data-logo-width', $logo.width() );
+
 							if(  $scrolled_logo_height < window.$scrolled_header_height - 10 ) {
 								var $scrolled_logo_container_margin = ( window.$scrolled_header_height - $scrolled_logo_height ) / 2;
 							} else {
 								$scrolled_logo_height = window.$scrolled_header_height - 10;
 								var $scrolled_logo_container_margin = 5;
 							}
+
+							$logo.css( 'width', 'auto' );
 
 							$logo.stop( true, true ).animate({
 								'height': $scrolled_logo_height
@@ -30660,10 +30663,8 @@ jQuery( window ).load(function() {
 					// Animate Logo to Original Size
 					if( $logo ) {
 						$logo.stop( true, true ).animate({
-							'height': $logo.height()
+							'height': $logo.data( 'logo-height' )
 						}, { queue: false, duration: $animation_duration, easing: 'easeOutCubic', complete: function() {
-							jQuery( this ).removeAttr( 'style' );
-						}, step: function() {
 							jQuery( this ).removeAttr( 'style' );
 						} });
 					}

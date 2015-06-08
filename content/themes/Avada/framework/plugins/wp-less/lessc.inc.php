@@ -1,10 +1,10 @@
 <?php
-if( ! class_exists( 'lessc' ) ) {
+if( ! class_exists( 'avada_lessc' ) ) {
 	require_once('Less.php');
 	
-	class lessc{
+	class avada_lessc{
 
-		static public $VERSION = Less_Version::less_version;
+		static public $VERSION = avada_Less_Version::avada_Less_Version;
 
 		public $importDir = '';
 		protected $allParsedFiles = array();
@@ -60,7 +60,7 @@ if( ! class_exists( 'lessc' ) ) {
 					break;
 			}
 
-			$parser = new Less_Parser($options);
+			$parser = new avada_Less_Parser($options);
 			$parser->setImportDirs($this->getImportDirs());
 			foreach ($this->libFunctions as $name => $func) {
 				$parser->registerFunction($name, $func);
@@ -87,7 +87,7 @@ if( ! class_exists( 'lessc' ) ) {
 
 			$this->allParsedFiles = array();
 
-			$parser = new Less_Parser();
+			$parser = new avada_Less_Parser();
 			$parser->SetImportDirs($this->getImportDirs());
 
 			foreach ($this->libFunctions as $name => $func) {
@@ -101,7 +101,7 @@ if( ! class_exists( 'lessc' ) ) {
 
 			$out = $parser->getCss();
 
-			$parsed = Less_Parser::AllParsedFiles();
+			$parsed = avada_Less_Parser::AllParsedFiles();
 			foreach( $parsed as $file ){
 				$this->addParsedFile($file);
 			}
@@ -126,7 +126,7 @@ if( ! class_exists( 'lessc' ) ) {
 			$this->allParsedFiles = array();
 			$this->addParsedFile($fname);
 
-			$parser = new Less_Parser();
+			$parser = new avada_Less_Parser();
 			$parser->SetImportDirs($this->getImportDirs());
 
 			foreach ($this->libFunctions as $name => $func) {
@@ -138,7 +138,7 @@ if( ! class_exists( 'lessc' ) ) {
 
 			$out = $parser->getCss();
 
-			$parsed = Less_Parser::AllParsedFiles();
+			$parsed = avada_Less_Parser::AllParsedFiles();
 			foreach ($parsed as $file) {
 				$this->addParsedFile($file);
 			}

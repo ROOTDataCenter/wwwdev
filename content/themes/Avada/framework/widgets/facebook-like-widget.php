@@ -24,7 +24,7 @@ if ( ! class_exists( 'Fusion_Facebook_Like_Widget' ) ) {
 
 			$title = apply_filters('widget_title', $instance['title']);
 			$app_id = $instance['app_id'];
-			$language = get_locale();	
+			$language = get_locale();
 			$page_url = $instance['page_url'];
 			$widget_width = $instance['width'];
 			$color_scheme = $instance['color_scheme'];
@@ -61,37 +61,38 @@ if ( ! class_exists( 'Fusion_Facebook_Like_Widget' ) ) {
 
 			if ( $page_url ): 
 			
-			if ( $app_id ): ?>
-			
-				<div class="fb-like-box-container_<?php echo $args['widget_id']; ?> id="fb-root"></div>
-				<script>(function(d, s, id) {
-				  var js, fjs = d.getElementsByTagName(s)[0];
-				  var $app_id = <?php echo $app_id; ?>;
-				  if (d.getElementById(id)) return;
-				  js = d.createElement(s); js.id = id;
-				  js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&appId=<?php echo $language; ?>&version=v2.3";
-				  fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));</script>			
-				<div class="fb-page" data-href="<?php echo $page_url; ?>" data-width="<?php echo $widget_width; ?>" data-height="<?php echo $height; ?>" data-hide-cover="<?php echo $show_header; ?>" data-show-facepile="<?php echo $show_faces; ?>" data-show-posts="<?php echo $show_stream; ?>"></div>			
-			
-			<?php else: ?>
-			
-				<div class="fb-like-box-container_<?php echo $args['widget_id']; ?>"></div>
-				<script type="text/javascript">
-				var container_width_current = jQuery('.fb-like-box-container_<?php echo $args['widget_id']; ?>').width();
-				jQuery(window).bind('load', function() {
-				jQuery('.fb-like-box-container_<?php echo $args['widget_id']; ?>').html('<iframe src="http<?php echo (is_ssl())? 's' : ''; ?>://www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($page_url); ?>&amp;width=' + container_width_current + '&amp;colorscheme=<?php echo $color_scheme; ?>&amp;show_faces=<?php echo $show_faces; ?>&amp;stream=<?php echo $show_stream; ?>&amp;header=<?php echo $show_header; ?>&amp;height=<?php echo $height; ?>&amp;force_wall=true<?php if($show_faces == 'true'): ?>&amp;connections=<?php endif; ?>" style="border:none; overflow:hidden; width:100%; max-width:' + container_width_current + 'px; height: <?php echo $height; ?>px;"></iframe>');
-				});
-				jQuery(window).bind('resize', function() {
-					var container_width_new = jQuery('.fb-like-box-container_<?php echo $args['widget_id']; ?>').width();
-					if(container_width_new != container_width_current) {
-						container_width_current = container_width_new;
-						jQuery('.fb-like-box-container_<?php echo $args['widget_id']; ?>').html('<iframe src="http<?php echo (is_ssl())? 's' : ''; ?>://www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($page_url); ?>&amp;width=' + container_width_current + '&amp;colorscheme=<?php echo $color_scheme; ?>&amp;show_faces=<?php echo $show_faces; ?>&amp;stream=<?php echo $show_stream; ?>&amp;header=<?php echo $show_header; ?>&amp;height=<?php echo $height; ?>&amp;force_wall=true<?php if($show_faces == 'true'): ?>&amp;connections=<?php endif; ?>" style="border:none; overflow:hidden; width:100%; max-width:' + container_width_current + 'px; height: <?php echo $height; ?>px;"></iframe>');
-					}
-				});
-				</script>
-			
-			<?php endif;
+				if ( $app_id ): 
+					$show_header = isset( $instance['show_header'] ) ? 'false' : 'true';
+					?>
+
+					<div class="fb-like-box-container_<?php echo $args['widget_id']; ?> id="fb-root"></div>
+					<script>(function(d, s, id) {
+					  var js, fjs = d.getElementsByTagName(s)[0];
+					  var $app_id = <?php echo $app_id; ?>;
+					  if (d.getElementById(id)) return;
+					  js = d.createElement(s); js.id = id;
+					  js.src = "//connect.facebook.net/<?php echo $language; ?>/sdk.js#xfbml=1&appId=<?php echo $app_id; ?>&version=v2.3";
+					  fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));</script>			
+					<div class="fb-page" data-href="<?php echo $page_url; ?>" data-width="<?php echo $widget_width; ?>" data-height="<?php echo $height; ?>" data-hide-cover="<?php echo $show_header; ?>" data-show-facepile="<?php echo $show_faces; ?>" data-show-posts="<?php echo $show_stream; ?>"></div>			
+
+				<?php else: ?>
+
+					<div class="fb-like-box-container_<?php echo $args['widget_id']; ?>"></div>
+					<script type="text/javascript">
+					var container_width_current = jQuery('.fb-like-box-container_<?php echo $args['widget_id']; ?>').width();
+					jQuery(window).bind('load', function() {
+					jQuery('.fb-like-box-container_<?php echo $args['widget_id']; ?>').html('<iframe src="http<?php echo (is_ssl())? 's' : ''; ?>://www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($page_url); ?>&amp;width=' + container_width_current + '&amp;colorscheme=<?php echo $color_scheme; ?>&amp;show_faces=<?php echo $show_faces; ?>&amp;stream=<?php echo $show_stream; ?>&amp;header=<?php echo $show_header; ?>&amp;height=<?php echo $height; ?>&amp;force_wall=true<?php if($show_faces == 'true'): ?>&amp;connections=<?php endif; ?>" style="border:none; overflow:hidden; width:100%; max-width:' + container_width_current + 'px; height: <?php echo $height; ?>px;"></iframe>');
+					});
+					jQuery(window).bind('resize', function() {
+						var container_width_new = jQuery('.fb-like-box-container_<?php echo $args['widget_id']; ?>').width();
+						if(container_width_new != container_width_current) {
+							container_width_current = container_width_new;
+							jQuery('.fb-like-box-container_<?php echo $args['widget_id']; ?>').html('<iframe src="http<?php echo (is_ssl())? 's' : ''; ?>://www.facebook.com/plugins/likebox.php?href=<?php echo urlencode($page_url); ?>&amp;width=' + container_width_current + '&amp;colorscheme=<?php echo $color_scheme; ?>&amp;show_faces=<?php echo $show_faces; ?>&amp;stream=<?php echo $show_stream; ?>&amp;header=<?php echo $show_header; ?>&amp;height=<?php echo $height; ?>&amp;force_wall=true<?php if($show_faces == 'true'): ?>&amp;connections=<?php endif; ?>" style="border:none; overflow:hidden; width:100%; max-width:' + container_width_current + 'px; height: <?php echo $height; ?>px;"></iframe>');
+						}
+					});
+					</script>			
+				<?php endif;
 			
 			endif;
 

@@ -1,3 +1,5 @@
+@import "../variables.less";
+
 /* Woocommerce */
 .woocommerce input[type="number"] { -moz-appearance:textfield; }
 
@@ -58,9 +60,6 @@
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 	cursor: pointer;
 }
 .woocommerce .lost_reset_password input[type=submit] {
@@ -739,69 +738,6 @@ form.cart {
 .woocommerce-tabs .panel {
 	border: 1px solid #e7e6e6;
 	margin-left: 240px;
-}
-
-& when (@woocommerce-product-tab-design = horizontal) {
-	.woocommerce-tabs > .tabs {
-		width:100%;
-		margin:0px;
-		border-bottom:1px solid #dddddd;
-	}
-	.woocommerce-tabs > .tabs li {
-		float:left;
-	}
-	.woocommerce-tabs > .tabs li a {
-		border:none !important;
-		padding:10px 20px;
-	}
-	.woocommerce-tabs > .tabs .active {
-		border: 1px solid #dddddd;
-
-		height:40px;
-	}
-	.woocommerce-tabs > .tabs .active:hover a {
-		cursor:default;
-	}
-	.woocommerce-tabs .entry-content {
-		float:left;
-		margin:0px;
-		width:100%;
-		border-top:none;	
-	}
-	
-
-	@media all and (max-width: 965px ) {		
-		.tabs {
-			margin-bottom:0px !important;
-		}
-		#wrapper .woocommerce-tabs .tabs, #wrapper .woocommerce-tabs .panel {
-			float:left !important;
-		}
-	}
-	
-	@media all and (max-width: 470px ) {
-		.woocommerce-tabs>.tabs li {
-			float: left;
-			width: 100%;
-			margin-bottom: 2px;
-			border-bottom: 1px solid #dddddd;
-			border-left:none !important;
-			border-right:none !important;
-			border-top:none !important;
-		}
-		.woocommerce-tabs>.tabs .active {
-			height: auto;
-		}
-		.woocommerce-tabs .entry-content {
-			float:left;
-			width:100%;
-			margin-top:20px !important;
-			border-top:1px solid #dddddd;	
-		}
-		.woocommerce-tabs > .tabs {
-			border-bottom:none;
-		}
-	}
 }
 
 .woocommerce #review_form input[type=text] {
@@ -2602,10 +2538,6 @@ p.order-info mark {
         display: table;
         padding-top: 50px;
         padding-bottom: 50px;
-        & when not(@timeline-bg-color = transparent) {
-        	padding-left: 20px;
-        	padding-right: 20px;
-        }
 		margin: 0;
         border: none;
         border-bottom: 1px solid #efefef;

@@ -79,26 +79,28 @@
 			
 			// Setup default array for changeable variables
 			$defaults = array(
-				 'home_prefix'   		=> $this->options['breacrumb_prefix'],
-				 'separator' 			=> $this->options['breadcrumb_separator'],
-				 'show_terms'  			=> $this->options['breadcrumb_show_categories'],
-				 'home_label'      		=> __( 'Home', 'Avada' ),
-				 'tag_archive_prefix'   => __( 'Tag:', 'Avada' ),
-				 'search_prefix'        => __( 'Search:', 'Avada' ),
-				 'error_prefix' 		=> __( '404 - Page not Found', 'Avada' ),
+				 'home_prefix'   			=> $this->options['breacrumb_prefix'],
+				 'separator' 				=> $this->options['breadcrumb_separator'],
+				 'show_post_type_archive'	=> $this->options['breadcrumb_show_post_type_archive'],
+				 'show_terms'  				=> $this->options['breadcrumb_show_categories'],
+				 'home_label'      			=> __( 'Home', 'Avada' ),
+				 'tag_archive_prefix'   	=> __( 'Tag:', 'Avada' ),
+				 'search_prefix'        	=> __( 'Search:', 'Avada' ),
+				 'error_prefix' 			=> __( '404 - Page not Found', 'Avada' ),
 			);
 			
 			// Setup a filter for changeable variables and meger it with the defaults
 			$args = apply_filters( 'fusion_breadcrumbs_defaults', $defaults );
 			$defaults =  wp_parse_args( $args, $defaults );
 			
-			$this->home_prefix 			= $defaults['home_prefix'];
-			$this->separator			= $defaults['separator'];
-			$this->show_terms			= $defaults['show_terms'];
-			$this->home_label			= $defaults['home_label'];
-			$this->tag_archive_prefix	= $defaults['tag_archive_prefix'];
-			$this->search_prefix		= $defaults['search_prefix'];
-			$this->error_prefix			= $defaults['error_prefix'];
+			$this->home_prefix 				= $defaults['home_prefix'];
+			$this->separator				= $defaults['separator'];
+			$this->show_post_type_archive	= $defaults['show_post_type_archive'];
+			$this->show_terms				= $defaults['show_terms'];
+			$this->home_label				= $defaults['home_label'];
+			$this->tag_archive_prefix		= $defaults['tag_archive_prefix'];
+			$this->search_prefix			= $defaults['search_prefix'];
+			$this->error_prefix				= $defaults['error_prefix'];
 		}
 		
 		/**
@@ -159,7 +161,8 @@
 			if ( is_singular() ) {
 				// If the post type of the current post has an archive link, display the archive breadcrumb
 				if ( isset( $this->post->post_type ) && 
-					get_post_type_archive_link( $this->post->post_type ) 
+					get_post_type_archive_link( $this->post->post_type ) &&
+					$this->show_post_type_archive
 				) {
 					$this->html_markup .= $this->get_post_type_archive();
 				}

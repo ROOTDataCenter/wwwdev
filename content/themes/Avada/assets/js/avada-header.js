@@ -1296,12 +1296,17 @@ jQuery( window ).load(function() {
 						if( $logo ) {
 							var $scrolled_logo_height = $logo.height();
 
+							$logo.attr( 'data-logo-height', $logo.height() );
+							$logo.attr( 'data-logo-width', $logo.width() );
+
 							if(  $scrolled_logo_height < window.$scrolled_header_height - 10 ) {
 								var $scrolled_logo_container_margin = ( window.$scrolled_header_height - $scrolled_logo_height ) / 2;
 							} else {
 								$scrolled_logo_height = window.$scrolled_header_height - 10;
 								var $scrolled_logo_container_margin = 5;
 							}
+
+							$logo.css( 'width', 'auto' );
 
 							$logo.stop( true, true ).animate({
 								'height': $scrolled_logo_height
@@ -1386,10 +1391,8 @@ jQuery( window ).load(function() {
 					// Animate Logo to Original Size
 					if( $logo ) {
 						$logo.stop( true, true ).animate({
-							'height': $logo.height()
+							'height': $logo.data( 'logo-height' )
 						}, { queue: false, duration: $animation_duration, easing: 'easeOutCubic', complete: function() {
-							jQuery( this ).removeAttr( 'style' );
-						}, step: function() {
 							jQuery( this ).removeAttr( 'style' );
 						} });
 					}

@@ -8,8 +8,8 @@ jQuery(window).load(function() {
             jQuery( '.woocommerce.widget_product_categories select' ).wrap( '<p class="avada-select-parent"></p>' ).after( '<div class="select-arrow">&#xe61f;</div>' );
         }
 
-        jQuery( '.cart-collaterals #calc_shipping_country, .widget_layered_nav select' ).wrap( '<p class="avada-select-parent"></p>' ).after( '<div class="select-arrow">&#xe61f;</div>' );
-        jQuery( '.cart-collaterals #calc_shipping_state' ).after( '<div class="select-arrow">&#xe61f;</div>' );
+        jQuery( '.cart-collaterals select#calc_shipping_country, .widget_layered_nav select' ).wrap( '<p class="avada-select-parent"></p>' ).after( '<div class="select-arrow">&#xe61f;</div>' );
+        jQuery( '.cart-collaterals select#calc_shipping_state' ).after( '<div class="select-arrow">&#xe61f;</div>' );
 
         setTimeout(
             function() {
@@ -98,8 +98,6 @@ jQuery(window).load(function() {
 				// Timeout is needed that woocommerce js can kick in first
 				setTimeout(
 					function() {
-						console.log(jQuery( '.avada-shipping-calculator-form select#calc_shipping_state').length);
-						console.log(! jQuery( '.avada-shipping-calculator-form #calc_shipping_state' ).parent().find( '.select-arrow' ).length);
 						if ( jQuery( '.avada-shipping-calculator-form select#calc_shipping_state').length && ! jQuery( '.avada-shipping-calculator-form #calc_shipping_state' ).parent().find( '.select-arrow' ).length ) {
 							jQuery( '.avada-shipping-calculator-form select#calc_shipping_state').after( '<div class="select-arrow">&#xe61f;</div>' );
 						}

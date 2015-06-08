@@ -1501,7 +1501,7 @@
 						firstClass = 'ilightbox-prev',
 						secondClass = 'ilightbox-next';
 				} else if (side == "prev") {
-					if (!iL.items[item]) { return false; } 
+					if (!iL.items[item]) { return false; }
 					var firstHolder = vars.prevPhoto,
 						secondHolder = vars.holder,
 						lastHolder = vars.nextPhoto,
@@ -2424,7 +2424,7 @@
 
 						if (source.type == 'application/x-shockwave-flash') { object.type = "flash"; }
 						else if (source.type.indexOf("video/") != -1) { object.type = "video"; }
-						else if (source.type.indexOf("/html") != -1) { object.type = "iframe"; } 
+						else if (source.type.indexOf("/html") != -1) { object.type = "iframe"; }
 						else if (source.type.indexOf("image/") != -1) { object.type = "image"; }
 
 					} else if (typeof data.response != 'undefined') {
@@ -2604,7 +2604,7 @@
 	 * @return {String}
 	 */
 	function getExtension(URL) {
-		var ext = URL.split('.').pop().toLowerCase(),
+		var ext = ( URL ) ? URL.split('.').pop().toLowerCase() : '',
 			extra = ext.indexOf('?') !== -1 ? ext.split('?').pop() : '';
 
 		return ext.replace(extra, '');

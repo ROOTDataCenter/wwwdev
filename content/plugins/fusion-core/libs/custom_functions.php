@@ -266,6 +266,23 @@ if( ! function_exists( 'avada_wooslider' ) ) {
 				$slider_settings['typo_factor'] = '1.5';
 			}
 
+
+			if( ! isset( $slider_settings['slider_width'] ) || $slider_settings['slider_width'] == '' ) {
+				$slider_settings['slider_width'] = '100%';
+			}
+
+			if( ! isset( $slider_settings['slider_height'] ) || $slider_settings['slider_height'] == '' ) {
+				$slider_settings['slider_height'] = '500px';
+			}
+
+			if( ! isset( $slider_settings['full_screen'] ) ) {
+				$slider_settings['full_screen'] = false;
+			}
+
+			if( ! isset( $slider_settings['animation'] ) ) {
+				$slider_settings['animation'] = true;
+			}
+
 			$slider_data = '';
 			
 			if( $slider_settings ) {
@@ -302,11 +319,17 @@ if( ! function_exists( 'avada_wooslider' ) ) {
 			);
 			$query = new WP_Query( $args );
 			if ( $query->have_posts() ) {
-			?>
+			
+				if ( $slider_settings['animation'] == 'fade' ) {
+					$max_width = 'max-width:' . $slider_settings['slider_width'];
+				} else {
+					$max_width = '';
+				}
+				?>
 				<div class="fusion-slider-container <?php echo $slider_class; ?>-container" style="height:<?php echo $slider_settings['slider_height']; ?>;max-width:<?php echo $slider_settings['slider_width']; ?>;">
 					<div class="fusion-slider-loading"><?php _e( 'Loading...', 'Avada' ); ?></div>
 					<div class="tfs-slider flexslider main-flex<?php echo $slider_class; ?>" style="max-width:<?php echo $slider_settings['slider_width']; ?>;" <?php echo $slider_data; ?>>
-						<ul class="slides" style="max-width:<?php echo $slider_settings['slider_width']; ?>;">
+						<ul class="slides" style="<?php echo $max_width ?>;">
 							<?php
 							while( $query->have_posts() ): $query->the_post();
 								$metadata = get_metadata( 'post', get_the_ID() );
@@ -457,7 +480,7 @@ if( ! function_exists( 'avada_wooslider' ) ) {
 								<?php if( $video_bg_color && $video == true ): ?>
 								<div class="overlay" style="<?php echo $video_bg_color; ?>"></div>
 								<?php endif; ?>
-								<div class="background <?php echo $background_class; ?>" style="<?php echo $background_image; ?>max-width:<?php echo $slider_settings['slider_width']; ?>;height:<?php echo $slider_settings['slider_height']; ?>;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $image_url[0]; ?>', sizingMethod='scale');-ms-filter:'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $$image_url[0]; ?>', sizingMethod='scale')';" data-imgwidth="<?php echo $img_width; ?>">
+								<div class="background <?php echo $background_class; ?>" style="<?php echo $background_image; ?>max-width:<?php echo $slider_settings['slider_width']; ?>;height:<?php echo $slider_settings['slider_height']; ?>;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $image_url[0]; ?>', sizingMethod='scale');-ms-filter:'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?php echo $image_url[0]; ?>', sizingMethod='scale')';" data-imgwidth="<?php echo $img_width; ?>">
 									<?php if( isset( $metadata['pyre_type'][0] ) ): if( $metadata['pyre_type'][0] == 'self-hosted-video' && ( $metadata['pyre_webm'][0] || $metadata['pyre_mp4'][0] || $metadata['pyre_ogg'][0] ) ): ?>
 									<video width="1800" height="700" <?php echo $video_attributes; ?> preload="auto">
 										<?php if( array_key_exists( 'pyre_mp4', $metadata ) && $metadata['pyre_mp4'][0] ): ?>

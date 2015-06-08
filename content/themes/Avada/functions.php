@@ -510,8 +510,10 @@ function avada_font_awesome_name_handler( $icon ) {
 	return $fa_icon;
 }
 
-// Load LESS Compiler
-require_once 'framework/plugins/wp-less/wp-less.php';
+if( $smof_data['less_compiler'] == true ) {
+	// Load LESS Compiler
+	require_once 'framework/plugins/wp-less/wp-less.php';
+}
 
 function avada_scripts() {
 	if ( ! is_admin() && ! in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) ) ) {
@@ -925,10 +927,12 @@ function avada_scripts() {
 
 		wp_enqueue_style( 'avada-stylesheet', get_stylesheet_uri(), array(), $theme_info->get( 'Version' ) );
 
-		wp_enqueue_style( 'avada-dynamic', $template_directory . '/assets/less/theme/dynamic.less', array(), $theme_info->get( 'Version' ) );
+		if( $smof_data['less_compiler'] == true ) {
+			wp_enqueue_style( 'avada-dynamic', $template_directory . '/assets/less/theme/dynamic.less', array(), $theme_info->get( 'Version' ) );
 
-		wp_enqueue_style( 'avada-dynamic-IE', $template_directory . '/assets/less/theme/dynamic.less', array(), $theme_info->get( 'Version' ) );
-		$wp_styles->add_data( 'avada-dynamic-IE', 'conditional', 'lte IE 9' );
+			wp_enqueue_style( 'avada-dynamic-IE', $template_directory . '/assets/less/theme/dynamic.less', array(), $theme_info->get( 'Version' ) );
+			$wp_styles->add_data( 'avada-dynamic-IE', 'conditional', 'lte IE 9' );
+		}
 
 		wp_enqueue_style( 'avada-shortcodes', $template_directory . '/shortcodes.css', array(), $theme_info->get( 'Version' ) );
 		$wp_styles->add_data( 'avada-shortcodes', 'conditional', 'lte IE 9' );
@@ -957,10 +961,18 @@ function avada_scripts() {
 			wp_enqueue_style( 'avada-animations', $template_directory . '/animations.css', array(), $theme_info->get( 'Version' ) );
 		}
 
+		if( class_exists( 'Woocommerce' ) && $smof_data['less_compiler'] == false ) {
+			wp_enqueue_style( 'avada-woocommerce', $template_directory . '/assets/css/woocommerce.css', array(), $theme_info->get( 'Version' ) );
+		}
+
 		if ( ! $smof_data['status_lightbox'] && class_exists( 'Woocommerce' ) ) {
 			wp_dequeue_script( 'prettyPhoto' );
 			wp_dequeue_script( 'prettyPhoto-init' );
 			wp_dequeue_style( 'woocommerce_prettyPhoto_css' );
+		}
+
+		if( is_rtl() && $smof_data['less_compiler'] == false ) {
+			wp_enqueue_style( 'avada-rtl', $template_directory . '/assets/css/rtl.css', array(), $theme_info->get( 'Version' ) );
 		}
 	}
 }
@@ -1441,7 +1453,7 @@ function avada_register_required_plugins() {
 			'slug'	 				=> 'fusion-core', // The plugin slug (typically the folder name)
 			'source'   				=> get_template_directory() . '/framework/plugins/fusion-core.zip', // The plugin source
 			'required' 				=> true, // If false, the plugin is only 'recommended' instead of required
-			'version' 				=> '1.7', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
+			'version' 				=> '1.7.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher, otherwise a notice is presented
 			'force_activation' 		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
 			'force_deactivation' 	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
 			'external_url' 			=> '', // If set, overrides default API URL and points to an external URL

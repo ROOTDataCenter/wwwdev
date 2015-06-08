@@ -55,6 +55,10 @@ Table of Contents
 					display: block;
 					margin-top: 20px;
 				}
+				
+				.fusion-mobile-sticky-nav-holder {
+					display: none;
+				}				
 			}
 		}
 
@@ -111,6 +115,19 @@ Table of Contents
 				}
 			}
 		}
+		
+		&.fusion-is-sticky {
+			&.fusion-sticky-menu-1 {
+				.fusion-mobile-nav-holder {
+					display: none;
+				}
+				
+				.fusion-mobile-sticky-nav-holder {
+					display: block;
+				}				
+			}
+		}		
+		
 	}
 }
 
@@ -316,6 +333,10 @@ Table of Contents
 
 	// Modern Mobile Menu Design
 	.fusion-mobile-menu-design-modern {
+		.ubermenu-responsive-toggle, .ubermenu-sticky-toggle-wrapper {
+			clear: both;
+		}
+	
 		&.fusion-header-v1, &.fusion-header-v2, &.fusion-header-v3, &.fusion-header-v4, &.fusion-header-v5 {
 			.fusion-main-menu {
 				display: none;
@@ -541,9 +562,9 @@ Table of Contents
 		}
 
 		.fusion-mobile-nav-item, .fusion-mobile-selector {
-			& when (@mobile-menu-text-align = left) {
+			<?php if( $smof_data['mobile_menu_text_align'] == 'left' ): ?>
 				text-align: left;
-			}
+			<?php endif; ?>
 
 			& when (@mobile-menu-text-align = center) {
 				text-align: center;
@@ -646,15 +667,16 @@ Table of Contents
 	/* Page Title Bar */
 	.fusion-page-title-bar {
 		.fusion-body & {
-			& when not (@page-title-bar-mobile-height = auto) {
-				height: @page-title-bar-mobile-height * 1px;
-			}
+			<?php if( $smof_data['page_title_mobile_height'] != 'auto' ): ?>
+				height: <?php echo $smof_data['page_title_mobile_height']; ?>;
+			<?php endif ?>
 
-			& when (@page-title-bar-mobile-height = auto) {
+			<?php if( $smof_data['page_title_mobile_height'] == 'auto' ): ?>
 				padding-top: 10px;
 				padding-bottom: 10px;
 				height: auto;
 			}
+			<?php endif; ?>
 		}
 	}
 

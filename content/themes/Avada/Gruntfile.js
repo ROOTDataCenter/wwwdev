@@ -18,7 +18,9 @@ module.exports = function(grunt) {
 					'style.css': 'assets/less/style.less',
 					'shortcodes.css': 'assets/less/shortcodes.less',
 					'ilightbox.css': 'assets/less/plugins/iLightbox/iLightbox.less',
-					'animations.css': 'assets/less/theme/animations.less'
+					'animations.css': 'assets/less/theme/animations.less',
+					'assets/css/rtl.css': 'assets/less/theme/rtl.less',
+					'assets/css/woocommerce.css': 'assets/less/theme/woocommerce.less'
 				}
 			}
 		},

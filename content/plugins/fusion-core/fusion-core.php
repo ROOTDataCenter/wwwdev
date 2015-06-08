@@ -3,7 +3,7 @@
 Plugin Name: Fusion Core
 Plugin URI: http://www.theme-fusion.com
 Description: ThemeFusion Core Plugin for ThemeFusion Themes
-Version: 1.7
+Version: 1.7.1
 Author: ThemeFusion
 Author URI: http://www.theme-fusion.com
 */
