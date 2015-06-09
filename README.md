@@ -14,5 +14,3 @@ git submodule update
 ```
 
 3. Copy wp-config.php from Google Drive to the root folder
-
-4. test
