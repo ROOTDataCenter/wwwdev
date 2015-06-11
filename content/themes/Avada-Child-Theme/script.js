@@ -6,7 +6,7 @@ var done = false;
 var player;
 
 jQuery(document).ready(function () {
-    var videoButton = jQuery(".home-video-button");
+    var videoButton = jQuery(".home-video-button, .data-video-button");
 
     if (videoButton.length === 0) return;
 
