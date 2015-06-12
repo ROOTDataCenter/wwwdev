@@ -1126,7 +1126,29 @@ h1 span.subtitle {
     height: 7px;
 }
 
+#slider-home-text {
+    font-size: 28px !important;
+    line-height: 30px !important;
+    max-width: 345px !important;
+    max-height: 210px !important;
+    min-height: 210px !important;
+    left: 22.8454545454545px !important;
+    top: 111.881818181818px !important;
+    padding: 30px 30px 125px 25px !important;
+}
 
+#home-slider-button {
+    left: 55.2827272727273px !important;
+    top: 250.814545454545px !important;
+}
+
+#home-slider-button a {
+    padding: 15px 30px !important;
+}
+
+#home-slider-button span {
+    font-size: 14px !important;
+}
 
 @media only screen and (max-width: 800px) {
 
@@ -1211,7 +1233,14 @@ h1 span.subtitle {
         margin-bottom: 15px !important;
     }
 
+    #home-slider-button {
+        left: 25.2827272727273px !important;
+        top: 250.814545454545px !important;
+    }
+
 }
+
+
 
 @media only screen and (max-width: 680px) {
     .data-center-header-subcontent .left-column {
