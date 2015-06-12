@@ -21,13 +21,25 @@ a {
     color: #f6921e !important;
 }
 
-a:hover {
+a.white-link {
+    color: #FFF !important;
+}
+
+a:hover,
+a.white-link:hover {
     color: #f05a28 !important;
 }
+
+
 
 .button-default,
 .button-default:hover {
     color: #FFF !important;
+}
+
+#menu-item-12967 a {
+    color: #FFF !important;
+    cursor: default !important;
 }
 
 /* Fonts */
@@ -327,6 +339,7 @@ h1 span.subtitle {
 
 /* Data Center Page */
 
+
 .data-center-header {
     position: relative;
     height: 400px;
@@ -459,6 +472,8 @@ h1 span.subtitle {
     line-height: 28px !important;
     margin-bottom: 0 !important;
 }
+
+
 
 .services-nav-menu {
     background-color: #cdcdcd;
@@ -593,7 +608,7 @@ h1 span.subtitle {
 }
 
 .post-content .cooling-container .center-title {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
 
 .post-content .cooling-container h1,
@@ -892,6 +907,36 @@ h1 span.subtitle {
     padding-left: 0 !important;
 }
 
+.tech-spec-container {
+    padding: 25px;
+    vertical-align: middle;
+}
+
+.tech-spec-number {
+    float: left;
+    line-height: 38px;
+    color: #f6921e;
+    font-size: 20px;
+}
+
+.tech-spec-container a {
+    float: right;
+}
+
+.tech-spec-or {
+    display: block;
+    text-align: center;
+    line-height: 38px;
+    font-size: 16px;
+}
+
+.tech-specs-title {
+    margin-bottom: 0;
+}
+
+.tech-specs-title h1 {
+    line-height: 88px !important;
+}
 
 /* About Page */
 
@@ -1003,4 +1048,182 @@ h1 span.subtitle {
 
 .page-id-12675 .fusion-page-title-bar {
     display: none;
+}
+
+.contact-header-breadcrumbs {
+    position: absolute;
+    top: 354px;
+    width: 100%;
+    padding: 15px;
+    background-color: #eaeaea;
+}
+
+.contact-header-breadcrumbs .breadcrumbs-text {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    z-index: 10;
+}
+
+.contact-header-breadcrumbs img {
+    vertical-align: middle;
+    margin: 0px 0 2px;
+    height: 7px;
+}
+
+.contact-header-image {
+    height: 384px;
+    overflow: hidden;
+}
+
+.contact-header-image img {
+    height: 384px;
+    width: auto;
+    max-width: none;
+    float: right;
+}
+
+
+
+@media only screen and (max-width: 800px) {
+
+    /* General */
+    .fusion-mobile-menu-design-classic .fusion-secondary-header {
+        padding: 0 !important;
+    }
+
+    .fusion-mobile-menu-design-classic .fusion-alignright {
+        width: auto !important;
+        float: right !important;
+    }
+
+    .fusion-mobile-menu-design-classic .fusion-secondary-menu {
+        display: block !important;
+    }
+    .fusion-mobile-menu-design-classic.fusion-header-v2 .fusion-secondary-header .fusion-mobile-nav-holder {
+        display: none !important;
+    }
+
+    .fusion-mobile-menu-design-classic .fusion-secondary-menu a {
+        font-size: 10px !important;
+    }
+
+    /*Data Center */
+
+    .shortcut-nav-container {
+        display: none;
+    }
+
+    .power-boxes .fusion-column {
+        float: left;
+        width: 50%;
+    }
+
+    .cooling-container {
+        padding-bottom: 75px !important;
+    }
+
+    .cooling-container .fusion-one-half {
+        margin-bottom: 0 !important;
+    }
+
+    .security-container .fusion-title {
+        margin-bottom: 0 !important;
+    }
+
+    .scaleability-container .left-column {
+        margin-bottom: 0 !important;
+    }
+
+    .tech-specs-container .fusion-one-sixth {
+        float: left;
+        width: 25% !important;
+    }
+
+    .tech-specs-container .fusion-one-half {
+        float: left;
+        width: 75% !important;
+    }
+
+    /*Home */
+    .fusion-content-boxes.content-boxes-icon-with-title.partners-container .heading-with-icon {
+        margin: 0 auto !important;
+    }
+
+    .partners-title {
+        display: block;
+    }
+
+    .partners-title h1 {
+        display: block;
+        float: none;
+        text-align: center;
+    }
+
+    .home-critque .main-text {
+        line-height: 32px;
+    }
+
+    .home-critique-buttons a {
+        margin-bottom: 15px !important;
+    }
+
+}
+
+@media only screen and (max-width: 680px) {
+    .data-center-header-subcontent .left-column {
+        float: none;
+        width: 100%;
+    }
+
+    .data-center-header-subcontent .right-column {
+        margin-top: 15px;
+        margin-left: 0;
+        padding-left: 0;
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .tech-specs-container .fusion-one-sixth {
+        float: none;
+        width: 100% !important;
+    }
+
+    .tech-specs-container .fusion-one-half {
+        float: none;
+        width: 100% !important;
+    }
+}
+
+
+@media only screen and (max-width: 480px) {
+    /* Data Center */
+
+    .data-center-header {
+        background-position: 30% center;
+    }
+
+    .data-center-header-content {
+        width: 100%;
+        padding: 10px;
+        left: 0px;
+    }
+
+    .post-content .data-center-header-content h1 {
+        font-size: 28px;
+        line-height: 30px;
+    }
+
+    .power-boxes .fusion-column {
+        float: none;
+        width: 100%;
+    }
+
+    .post-content .scaleability-container h1 {
+        line-height: 38px;
+    }
+
+    .post-content .scaleability-container h1 br {
+        display: none;
+    }
 }
