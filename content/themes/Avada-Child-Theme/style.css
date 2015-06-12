@@ -5,6 +5,12 @@ Author: Your name here
 Template: Avada
 */
 
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+}
+
 .yellow-border {
     border-left: 8px solid #faaf40 !important;
 }
@@ -83,6 +89,8 @@ a.white-link:hover {
     background-color: #000000;
     border-top-color: #f15929; /* Old browsers */
     border-bottom-width: 0px;
+    border-left-width: 0 !important;
+    border-right-width: 0 !important;
     -webkit-border-image:
     -webkit-gradient(left,  #f15929 0%,#faae3f 100%) 100;
     -webkit-border-image:
@@ -1036,6 +1044,7 @@ h1 span.subtitle {
 
 
 .page-id-11328 .fusion-column-wrapper {
+    overflow: hidden;
     min-height: 257px !important;
 }
 
@@ -1081,6 +1090,40 @@ h1 span.subtitle {
     width: auto;
     max-width: none;
     float: right;
+}
+
+/* Resources */
+
+.page-id-12729 .fusion-page-title-bar {
+    display: none;
+}
+
+.page-id-12729 .fusion-clearfix {
+    display: none;
+}
+
+.page-id-12729 .fusion-one-half {
+    width: 46% !important;
+}
+
+.resource-header-breadcrumbs {
+    position: relative;
+    width: 100%;
+    padding: 15px;
+    background-color: #eaeaea;
+}
+
+.resource-header-breadcrumbs .breadcrumbs-text {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    z-index: 10;
+}
+
+.resource-header-breadcrumbs img {
+    vertical-align: middle;
+    margin: 0px 0 2px;
+    height: 7px;
 }
 
 
@@ -1227,3 +1270,4 @@ h1 span.subtitle {
         display: none;
     }
 }
+
